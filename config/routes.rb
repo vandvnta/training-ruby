@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :roles
-  resources :users
-  resources :teams
-  root "users#index"
+    namespace :admin do
+        get "dashboard", to: "dashboard#index"
+        resources :roles
+        resources :users
+        resources :teams
+    end
   get "up" => "rails/health#show", as: :rails_health_check
 end

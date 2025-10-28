@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= stylesheet_link_tag "admin", media: "all" %>
+    <%= javascript_importmap_tags %>
+</head>
+
+<body>
+    <div class="admin-container" style="display: flex; min-height: 100vh;">
+
+        <!-- Sidebar -->
+        <aside style="width: 220px; background-color: #f8f9fa; padding: 20px;">
+            <%= render "admin/sidebar" %>
+        </aside>
+
+        <!-- Main content -->
+        <main style="flex: 1; padding: 20px">
+            <%= yield %>
+        </main>
+    </div>
+</body>
+</html>

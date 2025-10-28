@@ -1,0 +1,12 @@
+<tr>
+    <td><%= role.name %></td>
+    <td><%= role.description %></td>
+    <td><%= role.created_at %></td>
+    <td>
+        <%= link_to "Show", [:admin, role] %> | 
+        <%= link_to "Edit", edit_admin_role_path(role) %> | 
+        <%= button_to "Destroy", [:admin, role], 
+            method: :delete,
+            data: { turbo_confirm: "Bạn có chắc chắn muốn xóa role này không?" } %>
+    </td>
+</tr>

@@ -1,0 +1,105 @@
+<style>
+    .admin-form {
+        max-width: 600px;
+        margin: 30px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        font-family: "Segoe UI", Roboto, sans-serif;
+    }
+
+    .admin-form h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #2c3e50;
+    }
+
+    .admin-form .errors {
+        background: #fce4e4;
+        border-left: 4px solid #e74c3c;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        color: #c0392b;
+    }
+
+    .admin-form .field {
+        margin-bottom: 20px;
+    }
+
+    .admin-form label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #34495e;
+    }
+
+    .admin-form input[type="text"],
+    .admin-form textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        transition: border 0.2s ease;
+        font-size: 15px;
+    }
+
+    .admin-form textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .admin-form input:focus,
+    .admin-form textarea:focus {
+        border-color: #1abc9c;
+    }
+
+    .admin-form input[type="submit"] {
+        width: 100%;
+        background: #1abc9c;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .admin-form input[type="submit"]:hover {
+        background: #16a085;
+    }
+</style>
+
+<div class="admin-form">
+    <h2><%= team.new_record? ? "Create Team" : "Edit Team" %></h2>
+
+    <% if team.errors.any? %>
+        <div class="errors">
+            <strong><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</strong>
+            <ul>
+                <% team.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <%= form_with(model: [:admin, team], local: true) do |form| %>
+        <div class="field">
+            <%= form.label :name %>
+            <%= form.text_field :name %>
+        </div>
+
+        <div class="field">
+            <%= form.label :description %>
+            <%= form.text_area :description %>
+        </div>
+
+        <div>
+            <%= form.submit team.new_record? ? "Create" : "Update" %>
+        </div>
+    <% end %>
+</div>

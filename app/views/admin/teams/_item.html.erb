@@ -1,0 +1,12 @@
+<tr>
+    <td><%= team.name %></td>
+    <td><%= team.description %></td>
+    <td><%= l team.created_at, format: :short %></td>
+    <td>
+        <%= link_to "Show", [:admin, team] %> | 
+        <%= link_to "Edit", edit_admin_team_path(team) %> | 
+        <%= button_to "Destroy", [:admin, team], 
+            method: :delete, 
+            data: { turbo_confirm: "Bạn có chắc chắn muốn xóa team này không?" } %>
+    </td>
+</tr>

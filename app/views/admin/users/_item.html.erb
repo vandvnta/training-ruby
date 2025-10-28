@@ -1,0 +1,14 @@
+<tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.team&.name || "No team" %></td>
+    <td><%= user.role&.name || "No role" %></td>
+    <td><%= l user.created_at, format: :short %></td>
+    <td>
+        <%= link_to "Show", [:admin, user] %> | 
+        <%= link_to "Edit", edit_admin_user_path(user) %> | 
+        <%= button_to "Destroy", [:admin, user],
+            method: :delete,
+            data: { turbo_confirm: "Bạn có chắc chắn muốn xóa người dùng này không?" } %>
+    </td>
+</tr>

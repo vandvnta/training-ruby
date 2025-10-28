@@ -1,31 +1,31 @@
-class TeamsController < ApplicationController
+class Admin::TeamsController < Admin::BaseController
   before_action :set_team, only: %i[ show edit update destroy ]
 
-  # GET /teams or /teams.json
+  # GET /admin/teams or /teams.json
   def index
     @teams = Team.all
   end
 
-  # GET /teams/1 or /teams/1.json
+  # GET /admin/teams/1 or /teams/1.json
   def show
   end
 
-  # GET /teams/new
+  # GET /admin/teams/new
   def new
     @team = Team.new
   end
 
-  # GET /teams/1/edit
+  # GET /admin/teams/1/edit
   def edit
   end
 
-  # POST /teams or /teams.json
+  # POST /admin/teams or /teams.json
   def create
     @team = Team.new(team_params)
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: "Team was successfully created." }
+        format.html { redirect_to admin_team_path(@team), notice: "Team was successfully created." }
         format.json { render :show, status: :created, location: @team }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +34,11 @@ class TeamsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teams/1 or /teams/1.json
+  # PATCH/PUT /admin/teams/1 or /teams/1.json
   def update
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
+        format.html { redirect_to admin_team_path(@team), notice: "Team was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,12 +47,12 @@ class TeamsController < ApplicationController
     end
   end
 
-  # DELETE /teams/1 or /teams/1.json
+  # DELETE /admin/teams/1 or /teams/1.json
   def destroy
     @team.destroy!
 
     respond_to do |format|
-      format.html { redirect_to teams_path, notice: "Team was successfully destroyed.", status: :see_other }
+      format.html { redirect_to admin_teams_path, notice: "Team was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
