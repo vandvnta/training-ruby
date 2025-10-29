@@ -76,21 +76,13 @@
 <div class="admin-form">
     <h2><%= role.new_record? ? "Create Role" : "Edit Role" %></h2>
 
-    <% if role.errors.any? %>
-        <div class="errors">
-            <strong><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</strong>
-            <ul>
-                <% role.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-
     <%= form_with(model: [:admin, role], local: true) do |form| %>
         <div class="field">
             <%= form.label :name %>
             <%= form.text_field :name %>
+            <% if @role.errors[:name].any? %>
+                <div class="errors"><%= @role.errors.full_messages_for(:name).join(', ') %></div>
+            <% end %>
         </div>
 
         <div class="field">

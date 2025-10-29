@@ -13,8 +13,14 @@
     </thead>
 
     <tbody id="roles">
-        <% @roles.each do |role| %>
-            <%= render partial: "item", locals: { role: role } %>
+        <% if @roles.any? %>
+            <% @roles.each do |role| %>
+                <%= render partial: "item", locals: { role: role } %>
+            <% end %>
+        <% else %>
+            <tr>
+                <td colspan="100%" class="text-center">No data</td>
+            </tr>
         <% end %>
     </tbody>
 </table>

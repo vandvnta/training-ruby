@@ -13,8 +13,14 @@
     </thead>
 
     <tbody id="teams">
-        <% @teams.each do |team| %>
-            <%= render partial: "item", locals: { team: team } %>
+        <% if @teams.any? %>
+            <% @teams.each do |team| %>
+                <%= render partial: "item", locals: { team: team } %>
+            <% end %>
+        <% else %>
+            <tr>
+                <td colspan="100%">No data</td>
+            </tr>
         <% end %>
     </tbody>
 </table>

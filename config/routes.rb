@@ -5,5 +5,6 @@ Rails.application.routes.draw do
         resources :users
         resources :teams
     end
+    root "admin/dashboard#index"
   get "up" => "rails/health#show", as: :rails_health_check
 end

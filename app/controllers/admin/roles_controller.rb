@@ -49,11 +49,11 @@ class Admin::RolesController < Admin::BaseController
 
   # DELETE /admin/roles/1 or /roles/1.json
   def destroy
-    @role.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to admin_roles_path, notice: "Role was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
+    @role = Role.find(params[:id])
+    if @role.destroy
+      redirect_to admin_roles_path, notice: "Role was successfully deleted."
+    else
+      redirect_to admin_roles_path, alert: @role.errors.full_messages.to_sentence
     end
   end
 

@@ -76,21 +76,13 @@
 <div class="admin-form">
     <h2><%= team.new_record? ? "Create Team" : "Edit Team" %></h2>
 
-    <% if team.errors.any? %>
-        <div class="errors">
-            <strong><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</strong>
-            <ul>
-                <% team.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-
     <%= form_with(model: [:admin, team], local: true) do |form| %>
         <div class="field">
             <%= form.label :name %>
             <%= form.text_field :name %>
+            <% if @team.errors[:name].any? %>
+                <div class="errors"><%= @team.errors.full_messages_for(:name).join(', ') %></div>
+            <% end %>
         </div>
 
         <div class="field">

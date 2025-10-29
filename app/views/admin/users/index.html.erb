@@ -15,8 +15,14 @@
     </thead>
 
     <tbody id="users">
-        <% @users.each do |user| %>
-            <%= render partial: "item", locals: { user: user } %>
+        <% if @users.any? %>
+            <% @users.each do |user| %>
+                <%= render partial: "item", locals: { user: user } %>
+            <% end %>
+        <% else %>
+            <tr>
+                <td colspan="100%" class="text-center">No data</td>
+            </tr>
         <% end %>
     </tbody>
 </table>
