@@ -19,5 +19,17 @@
                 class: ("active" if controller_path == "admin/users") %>
             </li>
         </ul>
+
+        <hr>
+
+        <ul>
+            <li>
+                <%= link_to "Logout", admin_logout_path,
+                    method: :delete,
+                    data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc muốn đăng xuất?" },
+                    class: "logout-link"
+                 %>
+            </li>
+        </ul>
     </nav>
 </div>
