@@ -24,12 +24,21 @@
 
         <ul>
             <li>
-                <%= link_to "Logout", admin_logout_path,
-                    method: :delete,
-                    data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc muốn đăng xuất?" },
-                    class: "logout-link"
-                 %>
+                <a href="#" id="logout-button">Logout</a>
             </li>
         </ul>
     </nav>
+</div>
+
+<!-- Modal custom -->
+<div id="logout-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Xác nhận đăng xuất</h3>
+    <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+    <div class="modal-actions">
+      <%= button_to "Đăng xuất", admin_logout_path, method: :delete, class: "btn btn-logout" %>
+      <button id="cancel-logout" class="btn btn-cancel">Hủy</button>
+    </div>
+  </div>
 </div>
