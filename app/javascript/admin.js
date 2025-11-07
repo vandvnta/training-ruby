@@ -1,10 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
     const logoutButton = document.getElementById("logout-button");
     const modal = document.getElementById("logout-modal");
     const close = document.querySelector(".modal .close");
     const cancel = document.getElementById("cancel-logout");
 
-    logoutButton.addEventListener("click", (e) => {
+    if (!logoutButton || !modal) return;
+
+    logoutButton.replaceWith(logoutButton.cloneNode(true));
+    const newLogoutButton = document.getElementById("logout-button");
+
+    newLogoutButton.addEventListener("click", (e) => {
         e.preventDefault();
         modal.style.display = "block";
     });
@@ -18,8 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("click", (e) => {
-        if (e.target == modal) {
-            modal.style.display = "none";
-        }
+        if (e.target == modal) modal.style.display = "none";
     });
 });
