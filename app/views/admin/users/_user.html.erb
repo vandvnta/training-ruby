@@ -1,22 +1,9 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
-
-  <p>
-    <strong>Team:</strong>
-    <%= user.team&.name %>
-  </p>
-
-  <p>
-    <strong>Role:</strong>
-    <%= user.role&.name %>
-  </p>
-
+<div class="card mb-3 shadow-sm">
+    <div class="card-header"><%= user.name %></div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Email:</strong> <%= user.email %></li>
+        <li class="list-group-item"><strong>Team:</strong> <%= user.team&.name %></li>
+        <li class="list-group-item"><strong>Role:</strong> <%= user.role&.name %></li>
+        <li class="list-group-item"><strong>Created at:</strong> <%= user.created_at.strftime("%Y-%m-%d") %></li>
+    </ul>
 </div>

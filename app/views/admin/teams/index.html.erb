@@ -1,10 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Teams</h1>
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2>Teams</h2>
+    <%= link_to "New Team", new_admin_team_path, class: "btn btn-primary" %>
+</div>
 
-<table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%">
+<hr>
+
+<table class="table table-striped">    
     <thead>
-        <tr style="background-color: #f5f5f5">
+        <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Create At</th>
@@ -19,12 +24,8 @@
             <% end %>
         <% else %>
             <tr>
-                <td colspan="100%">No data</td>
+                <td colspan="100%" class="text-center">No data</td>
             </tr>
         <% end %>
     </tbody>
 </table>
-
-<br>
-
-<%= link_to "New team", new_admin_team_path %>

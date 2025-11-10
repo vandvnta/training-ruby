@@ -1,184 +1,90 @@
-<style>
-    .admin-form {
-        max-width: 600px;
-        margin: 30px auto;
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        font-family: "Segoe UI", Roboto, sans-serif;
-    }
-
-    .admin-form h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        color: #2c3e50;
-    }
-
-    .admin-form .errors {
-        background: #fce4e4;
-        border-left: 4px solid #e74c3c;
-        padding: 10px 15px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        color: #c0392b;
-    }
-
-    .admin-form .field {
-        margin-bottom: 20px;
-    }
-
-    .admin-form label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: 600;
-        color: #34495e;
-    }
-
-    .admin-form input[type="text"],
-    .admin-form input[type="email"],
-    .admin-form input[type="password"],
-    .admin-form select {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        outline: none;
-        transition: border 0.2s ease;
-        font-size: 15px;
-    }
-
-    .admin-form input:focus,
-    .admin-form select:focus {
-        border-color: #1abc9c;
-    }
-
-    .admin-form .avatar-preview {
-        margin-top: 10px;
-    }
-
-    .admin-form img {
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        margin-top: 5px;
-    }
-
-    .admin-form input[type="submit"] {
-        width: 100%;
-        background: #1abc9c;
-        color: white;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-
-    .admin-form input[type="submit"]:hover {
-        background: #16a085;
-    }
-</style>
-
-<div class="admin-form">
-    <h2><%= user.new_record? ? "Create User" : "Edit User" %></h2>
-
-    <%= form_with(model: [:admin, user], local: true, html: { multipart: true }) do |form| %>
-
-        <div class="field">
-            <%= form.label :name %>*
-            <%= form.text_field :name %>
-            <% if @user.errors[:name].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:name).join(', ') %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :email %>*
-            <%= form.text_field :email %>
-            <% if @user.errors[:email].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:email).join(', ') %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :role_id, "Role" %>*
-            <%= form.collection_select :role_id, Role.all, :id, :name, prompt: "Chọn role" %>
-            <% if @user.errors[:role_id].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:role_id).join(', ') %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :team_id, "Team" %>*
-            <%= form.collection_select :team_id, Team.all, :id, :name, prompt: "Chọn team" %>
-            <% if @user.errors[:team_id].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:team_id).join(', ') %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :password %>
-            <%= form.password_field :password %>
-            <% if @user.errors[:password].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:password) %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :password_confirmation, "Confirm Password" %>
-            <%= form.password_field :password_confirmation %>
-            <% if @user.errors[:password_confirmation].any? %>
-                <div class="errors"><%= @user.errors.full_messages_for(:password_confirmation) %></div>
-            <% end %>
-        </div>
-
-        <div class="field">
-            <%= form.label :avatar, style: "display: block" %>
-            <%= form.file_field :avatar, id: "avatar_input", accept: "image/*" %>
-
-            <div id="avatar_preview_container" style="margin-top: 10px;">
-                <% if user.avatar.attached? %>
-                    <p>Current avatar:</p>
-                    <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), id: "avatar_preview", style: "border-radius: 6px; border: 1px solid #ccc;" %>
-                <% else %>
-                    <img id="avatar_preview" src="#" alt="Avatar preview" style="display: none; border-radius: 6px; border: 1px solid #ccc;" width="100" height="100">
+<div class="card shadow-sm mb-4" style="max-width: 600px;">
+    <div class="card-header">
+        <h3 class="mb-0">Create User</h3>
+    </div>
+    <div class="card-body px-4">
+        <%= form_with(model: [:admin, user], local: true, html: { multipart: true }) do |form| %>
+            <div class="mb-3">
+                <%= form.label :name, class: "form-label" %> <span class="label-required">*</span>
+                <%= form.text_field :name, class: "form-control" %>
+                <% if @user.errors[:name].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:name).join(', ') %>
+                    <div>
                 <% end %>
             </div>
-        </div>
+            <div class="mb-3">
+                <%= form.label :email, class: "form-label" %> <span class="label-required">*</span>
+                <%= form.text_field :email, class: "form-control" %>
+                <% if @user.errors[:email].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:email).join(', ') %>
+                    <div>
+                <% end %>
+            </div>
 
-        <div>
-            <%= form.submit user.new_record? ? "Create" : "Update" %>
-        </div>
-    <% end %>
+            <div class="mb-3">
+                <%= form.label :role_id, "Role", class: "form-label" %> <span class="label-required">*</span>
+                <%= form.collection_select :role_id, Role.all, :id, :name, { prompt: "Select Role" }, { class: "form-select" } %>
+                <% if @user.errors[:role_id].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:role_id).join(', ') %>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="mb-3">
+                <%= form.label :team_id, "Team", class: "form-label" %> <span class="label-required">*</span>
+                <%= form.collection_select :team_id, Team.all, :id, :name, { prompt: "Select Team" }, { class: "form-select" } %>
+                <% if @user.errors[:team_id].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:team_id).join(', ') %>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="mb-3">
+                <%= form.label :password, class: "form-label" %> <span class="label-required">*</span>
+                <%= form.password_field :password, class: "form-control" %>
+                <% if @user.errors[:password].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:password) %>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="mb-3">
+                <%= form.label :password_confirmation, "Confirm Password", class: "form-label" %> <span class="label-required">*</span>
+                <%= form.password_field :password_confirmation, class: "form-control" %>
+                <% if @user.errors[:password_confirmation].any? %>
+                    <div class="text-danger mt-1">
+                        <%= @user.errors.full_messages_for(:password_confirmation) %>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="mb-3">
+                <%= form.label :avatar, class: "form-label" %>
+                <%= form.file_field :avatar, class: "form-control", id: "avatar_input", accept: "image/*" %>
+            
+                <div class="avatar_preview_container" class="mt-2">
+                    <% if user.avatar.attached %>
+                        <p>Current avatar:</p>
+                        <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), id: "avatar_preview", class: "img-thumbnail" %>
+                    <% else %>
+                        <img id="avatar_preview" src="#" alt="Avatar preview" style="display: none;" class="img-thumbnail" width="100" height="100">
+                    <% end %>
+                </div>
+            </div>
+            <div>
+                <%= link_to admin_users_path, class: "btn btn-secondary" do %>
+                    <i class="fas fa-arrow-left me-1"></i> Back
+                <% end %>
+
+                <%= form.submit class: "btn btn-primary" do %>
+                    <i class="fas fa-save me-1"></i>Create
+                <% end %>
+            </div>
+        <% end %>
+    </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const input = document.getElementById("avatar_input");
-    const preview = document.getElementById("avatar_preview");
-
-    function showPreview(file) {
-        if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-        }
-    }
-
-    <% if user.avatar.attached? %>
-        preview.style.display = "block";
-    <% end %>
-
-    if (input) {
-        input.addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        showPreview(file);
-        });
-    }
-    });
-
-</script>

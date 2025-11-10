@@ -118,3 +118,16 @@
 .btn-cancel:hover {
     background-color: #495057;
 }
+
+.td-action {
+    width: 120px;
+}
+
+.td-action form {
+    display: inline-block;
+    margin: 0;
+}
+
+.label-required {
+    color: red;
+}

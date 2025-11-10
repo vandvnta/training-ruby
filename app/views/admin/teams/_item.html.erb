@@ -1,12 +1,21 @@
 <tr>
     <td><%= team.name %></td>
     <td><%= team.description %></td>
-    <td><%= l team.created_at, format: :short %></td>
+    <td><%= team.created_at.strftime("%Y-%m-%d") %></td>
     <td>
-        <%= link_to "Show", [:admin, team] %> | 
-        <%= link_to "Edit", edit_admin_team_path(team) %> | 
-        <%= button_to "Destroy", [:admin, team], 
-            method: :delete, 
-            data: { turbo_confirm: "Bạn có chắc chắn muốn xóa team này không?" } %>
+        <div class="td-action">
+            <%= link_to [:admin, team], class: "btn btn-sm btn-info flex-fill text-while" do %>
+                <i class="fa fa-eye"></i>
+            <% end %>
+            <%= link_to edit_admin_team_path(team), class: "btn btn-sm btn-primary flex-fill text-while" do %>
+                <i class="fas fa-edit"></i>
+            <% end %>
+            <%= button_to [:admin, team],
+                method: :delete,
+                data: { turbo_confirm: "Bạn có chắc chắn muốn xóa team này không?" },
+                class: "btn btn-sm btn-danger flex-fill text-while" do %>
+                <i class="fas fa-trash"></i>
+            <% end %>
+        </div>
     </td>
 </tr>

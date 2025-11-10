@@ -8,6 +8,9 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.references :team, null: false, foreign_key: true
       t.references :role, null: false, foreign_key: true
 
+      t.string :reset_password_token
+      t.datetime :reset_password_sent_at
+      
       t.timestamps
     end
   end

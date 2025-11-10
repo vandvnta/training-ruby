@@ -1,21 +1,29 @@
-<h1>Đăng nhập Admin</h1>
+<h1 class="text-center mb-4">Đăng nhập Admin</h1>
 
 <% if flash[:alert] %>
-    <div class="flash flash-alert">
+    <div class="alert alert-danger">
         <%= flash[:alert] %>
     </div>
 <% end %>
 
-<%= form_with url: admin_login_path, local: true do |f| %>
-    <div>
-        <%= f.label :email %><br>
-        <%= f.email_field :email %>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <%= form_with url: admin_login_path, local: true do |f| %>
+            <div class="mb-3">
+                <%= f.label :email, class: "form-label" %>
+                <%= f.email_field :email, class: "form-control", autofocus: true %>
+            </div>
 
-    <div>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-    </div>
+            <div class="mb-3">
+                <%= f.label :password, class: "form-label" %>
+                <%= f.password_field :password, class: "form-control" %>
+            </div>
 
-    <%= f.submit "Đăng nhập" %>
-<% end %>
+            <div class="mb-3 text-end">
+                <%= link_to "Quên mật khẩu?", new_admin_password_path, class: "text-decoration-none" %>
+            </div>
+
+            <%= f.submit "Đăng nhập", class: "btn btn-primary w-100" %>
+        <% end %>
+    </div>
+</div>

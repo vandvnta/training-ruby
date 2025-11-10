@@ -1,0 +1,24 @@
+<div class="card shadow-sm mx-auto mt-5" style="max-width: 400px;">
+  <div class="card-header bg-success text-white text-center">
+    <h4>Đặt lại mật khẩu</h4>
+  </div>
+  <div class="card-body">
+    <%= form_with url: admin_password_path, method: :patch, local: true do |f| %>
+      <%= hidden_field_tag :token, params[:token] %>
+
+      <div class="mb-3">
+        <%= f.label :password, "Mật khẩu mới", class: "form-label" %>
+        <%= f.password_field :password, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, "Xác nhận mật khẩu", class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Cập nhật mật khẩu", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>

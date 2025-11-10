@@ -1,10 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Roles</h1>
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2>Roles</h2>
+    <%= link_to "New role", new_admin_role_path, class: "btn btn-primary" %>
+</div>
 
-<table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%">
+<hr>
+
+<table class="table table-striped">
     <thead>
-        <tr style="background-color: #f5f5f5">
+        <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Create At</th>
@@ -24,7 +29,3 @@
         <% end %>
     </tbody>
 </table>
-
-<br>
-
-<%= link_to "New role", new_admin_role_path %>

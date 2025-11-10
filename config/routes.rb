@@ -4,6 +4,7 @@ Rails.application.routes.draw do
         resources :roles
         resources :users
         resources :teams
+        resources :passwords, only: [:new, :create, :edit, :update]
 
         get "login", to: "sessions#new", as: :login
         post "login", to: "sessions#create"

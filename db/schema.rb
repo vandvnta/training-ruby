@@ -60,6 +60,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_28_044747) do
     t.string "avatar"
     t.bigint "team_id", null: false
     t.bigint "role_id", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_users_on_role_id"
