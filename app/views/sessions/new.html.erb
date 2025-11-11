@@ -1,13 +1,19 @@
 <h1 class="text-center mb-4">Đăng nhập Admin</h1>
 
 <% if flash[:alert] %>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% elsif flash[:notice] %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= flash[:notice] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <% end %>
 
-<div class="row justify-content-center">
-    <div class="col-md-4">
+<div class="justify-content-center">
+    <div>
         <%= form_with url: admin_login_path, local: true do |f| %>
             <div class="mb-3">
                 <%= f.label :email, class: "form-label" %>
@@ -19,11 +25,11 @@
                 <%= f.password_field :password, class: "form-control" %>
             </div>
 
-            <div class="mb-3 text-end">
-                <%= link_to "Quên mật khẩu?", new_admin_password_path, class: "text-decoration-none" %>
+            <div class="mb-3">
+                <%= link_to "Forgot your password?", new_admin_password_path, class: "text-decoration-none" %>
             </div>
 
-            <%= f.submit "Đăng nhập", class: "btn btn-primary w-100" %>
+            <%= f.submit "Log in", class: "btn btn-primary w-100" %>
         <% end %>
     </div>
 </div>

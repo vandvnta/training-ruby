@@ -43,21 +43,23 @@ class Admin::TeamsController < Admin::BaseController
 
     # DELETE /admin/teams/1 or /teams/1.json
     def destroy
-        service = Admin::TeamService.new(@team)
+        team = Team.find(params[:id])
+        service = Admin::TeamService.new(team)
+
         if service.destroy
-            redirect_to admin_teams_path, notice: "Team was successfully destroyed.", status: :see_other
+            flash[:notice] = "Team has been deleted."
         else
-            redirect_to admin_team_path(@team), alert: service.errors.join(", ")
+            flash[:alert] = service.errors.join(", ")
         end
+
+        redirect_to admin_teams_path
     end
 
     private
-    # Use callbacks to share common setup or constraints between actions.
     def set_team
         @team = Team.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def team_params
         params.require(:team).permit(:name, :description)
     end

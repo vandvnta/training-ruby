@@ -11,7 +11,7 @@ class Admin::SessionsController < ApplicationController
 
         if result.success?
             session[:admin_user_id] = result.user.id
-            redirect_to admin_dashboard_path, notice: "Đăng nhập thành công!"
+            redirect_to admin_dashboard_path, notice: "Login successful!"
         else
             flash.now[:alert] = result.error_message
             render "sessions/new", status: :unprocessable_entity
@@ -20,6 +20,6 @@ class Admin::SessionsController < ApplicationController
 
     def destroy
         session.delete(:admin_user_id)
-        redirect_to admin_login_path, notice: "Đã đăng xuất!"
+        redirect_to admin_login_path, notice: "Logged out!"
     end
 end

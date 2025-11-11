@@ -43,21 +43,23 @@ class Admin::RolesController < Admin::BaseController
 
     # DELETE /admin/roles/1 or /roles/1.json
     def destroy
-        service = Admin::RoleService.new(@role)
+        role = Role.find(params[:id])
+        service = Admin::RoleService.new(role)
+
         if service.destroy
-            redirect_to admin_roles_path, notice: "Role was successfully destroyed.", status: :see_other
+            flash[:notice] = "Role has been deleted."
         else
-            redirect_to admin_role_path(@role), alert: service.errors.join(", ")
+            flash[:alert] = service.errors.join(", ")
         end
+
+        redirect_to admin_roles_path
     end
 
     private
-    # Use callbacks to share common setup or constraints between actions.
     def set_role
         @role = Role.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def role_params
         params.require(:role).permit(:name, :description)
     end

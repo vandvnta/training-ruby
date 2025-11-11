@@ -23,9 +23,14 @@ module Admin
 
         # DESTROY
         def destroy
-            return false unless @role
+            return false unless role
 
-            @role.destroy
+            if role.users.exists?
+            @errors << "This Role cannot be deleted because it is still in use."
+            return false
+            end
+
+            role.destroy
             true
         rescue => e
             @errors << e.message

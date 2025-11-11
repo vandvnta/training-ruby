@@ -1,9 +1,32 @@
-<div class="card mb-3 shadow-sm">
-    <div class="card-header"><%= user.name %></div>
+<div class="card mb-3 shadow-sm" style="max-width: 500px">
+    <div class="card-header d-flex align-items-center">
+        <div class="me-3">
+            <% if user.avatar.attached? %>
+                <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), class: "img-thumbnail rounded-circle" %>
+            <% else %>
+                <% default_avatar_path = Rails.application.assets.find_asset('default_avatar.png') ? 'default_avatar.png' : 'https://placehold.co/100x100/cccccc/000000?text=Avatar' %>
+                <%= image_tag default_avatar_path, class: "img-thumbnail rounded-circle", width: 100, height: 100 %>
+            <% end %>
+        </div>
+        <h5 class="mb-0"><%= user.name %></h5>
+    </div>
+
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><strong>Email:</strong> <%= user.email %></li>
-        <li class="list-group-item"><strong>Team:</strong> <%= user.team&.name %></li>
-        <li class="list-group-item"><strong>Role:</strong> <%= user.role&.name %></li>
-        <li class="list-group-item"><strong>Created at:</strong> <%= user.created_at.strftime("%Y-%m-%d") %></li>
+        <li class="list-group-item d-flex justify-content-between">
+            <strong>Email:</strong>
+            <span><%= user.email %></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <strong>Team:</strong>
+            <span><%= user.team&.name || "-" %></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <strong>Role:</strong>
+            <span><%= user.role&.name || "-" %></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <strong>Created at:</strong>
+            <span><%= user.created_at.strftime("%Y-%m-%d") %></span>
+        </li>
     </ul>
 </div>

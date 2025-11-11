@@ -7,7 +7,7 @@ class Team < ApplicationRecord
 
     def check_users
         if users.exists?
-            errors.add(:base, "Team này đang được user sử dụng, không thể xóa");
+            errors.add(:base, "This team is being used by a user and cannot be deleted.");
             throw(:abort)
         end
     end

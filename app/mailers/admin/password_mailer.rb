@@ -3,7 +3,7 @@ class Admin::PasswordMailer < ApplicationMailer
 
   def reset_password
     @user = params[:user]
-    @reset_link = edit_admin_password_url(token: @user.reset_password_token)
-    mail(to: @user.email, subject: "Đặt lại mật khẩu của bạn")
+    @reset_link = edit_admin_password_url(@user.reset_password_token)
+    mail(to: @user.email, subject: "Reset your password")
   end
 end

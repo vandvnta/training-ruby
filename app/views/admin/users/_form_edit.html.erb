@@ -2,12 +2,12 @@
     <div class="card-header">
         <h3 class="mb-0 text-center"><%= user.new_record? ? "Create User" : "Edit User" %></h3>
     </div>
-
     <div class="card-body">
         <%= form_with(model: [:admin, user], local: true, html: { multipart: true }) do |form| %>
-
         <div class="mb-3">
-            <%= form.label :name, class: "form-label" %> *
+            <div class="d-flex align-items-center mb-2">
+                <%= form.label :name, class: "form-label" %><span class="label-required">*</span>
+            </div>
             <%= form.text_field :name, class: "form-control" %>
             <% if @user.errors[:name].any? %>
                 <div class="text-danger mt-1"><%= @user.errors.full_messages_for(:name).join(', ') %></div>
@@ -15,7 +15,9 @@
         </div>
 
         <div class="mb-3">
-            <%= form.label :email, class: "form-label" %> *
+            <div class="d-flex align-items-center mb-2">
+                <%= form.label :email, class: "form-label" %><span class="label-required">*</span>
+            </div>
             <%= form.text_field :email, class: "form-control" %>
             <% if @user.errors[:email].any? %>
                 <div class="text-danger mt-1"><%= @user.errors.full_messages_for(:email).join(', ') %></div>
@@ -23,7 +25,9 @@
         </div>
 
         <div class="mb-3">
-            <%= form.label :role_id, "Role", class: "form-label" %> *
+            <div class="d-flex align-items-center mb-2">
+                <%= form.label :role_id, "Role", class: "form-label" %><span class="label-required">*</span>
+            </div>
             <%= form.collection_select :role_id, Role.all, :id, :name, { prompt: "Select Role" }, { class: "form-select" } %>
             <% if @user.errors[:role_id].any? %>
                 <div class="text-danger mt-1"><%= @user.errors.full_messages_for(:role_id).join(', ') %></div>
@@ -31,7 +35,9 @@
         </div>
 
         <div class="mb-3">
-            <%= form.label :team_id, "Team", class: "form-label" %> *
+            <div class="d-flex align-items-center mb-2">
+                <%= form.label :team_id, "Team", class: "form-label" %><span class="label-required">*</span>
+            </div>
             <%= form.collection_select :team_id, Team.all, :id, :name, { prompt: "Select Team" }, { class: "form-select" } %>
             <% if @user.errors[:team_id].any? %>
                 <div class="text-danger mt-1"><%= @user.errors.full_messages_for(:team_id).join(', ') %></div>
@@ -41,14 +47,13 @@
         <div class="mb-3">
             <%= form.label :avatar, class: "form-label" %>
             <%= form.file_field :avatar, class: "form-control", id: "avatar_input", accept: "image/*" %>
-
             <div class="mt-2">
-            <% if user.avatar.attached? %>
-                <p>Current avatar:</p>
-                <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), id: "avatar_preview", class: "img-thumbnail" %>
-            <% else %>
-                <img id="avatar_preview" src="#" alt="Avatar preview" style="display: none;" class="img-thumbnail" width="100" height="100">
-            <% end %>
+                <% if user.avatar.attached? %>
+                    <p>Current avatar:</p>
+                    <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), id: "avatar_preview", class: "img-thumbnail" %>
+                <% else %>
+                    <img id="avatar_preview" src="#" alt="Avatar preview" style="display: none;" class="img-thumbnail" width="100" height="100">
+                <% end %>
             </div>
         </div>
 
@@ -56,41 +61,41 @@
             <%= link_to admin_users_path, class: "btn btn-secondary" do %>
                 <i class="fas fa-arrow-left me-1"></i> Back
             <% end %>
-
             <%= form.submit class: "btn btn-primary" do %>
                 <i class="fas fa-save me-1"></i> <%= user.new_record? ? "Create" : "Update" %>
             <% end %>
         </div>
-
         <% end %>
     </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("turbo:load", function() {
     const input = document.getElementById("avatar_input");
     const preview = document.getElementById("avatar_preview");
 
+    if (!input || !preview) return;
+
     function showPreview(file) {
-        if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-        }
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = "block";
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
     }
 
-    <% if user.avatar.attached? %>
-        preview.style.display = "block";
-    <% end %>
-
-    if (input) {
-        input.addEventListener("change", function(event) {
+    input.addEventListener("change", function(event) {
         const file = event.target.files[0];
         showPreview(file);
-        });
-    }
+    });
+
+    <% if user.avatar.attached? %>
+        preview.src = "<%= url_for(user.avatar.variant(resize_to_limit: [100, 100])) %>?t=<%= Time.now.to_i %>";
+        preview.style.display = "block";
+    <% else %>
+        preview.style.display = "none";
+    <% end %>
 });
 </script>

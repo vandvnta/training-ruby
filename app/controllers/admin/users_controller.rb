@@ -1,9 +1,10 @@
 class Admin::UsersController < Admin::BaseController
     before_action :set_user, only: %i[ show edit update destroy ]
+    include Pagy::Backend
 
     # GET /admin/users or /users.json
     def index
-        @users = User.all
+        @pagy, @users = pagy(User.order(created_at: :desc), items: 1)
     end
 
     # GET /admin/users/1 or /users/1.json
@@ -52,12 +53,10 @@ class Admin::UsersController < Admin::BaseController
     end
 
     private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
         @user = User.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def user_params
         params.require(:user).permit(:name, :email, :role_id, :team_id, :password, :password_confirmation, :avatar)
     end

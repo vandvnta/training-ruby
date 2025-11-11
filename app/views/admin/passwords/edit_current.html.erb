@@ -1,7 +1,8 @@
-<div class="card shadow-sm mx-auto mt-5" style="width: 400px;">
+<div class="card shadow-sm" style="width: 400px; margin: 20px;">
     <div class="card-header bg-primary text-white text-center">
-        <h4>Reset Password</h4>
+        <h3>Change Password</h3>
     </div>
+
     <div class="card-body">
         <% if flash[:alert] %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -14,22 +15,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <% end %>
-        <%= form_with model: @user, url: admin_password_path(@user.reset_password_token), method: :patch, local: true do |f| %>
-            <%= hidden_field_tag :token, params[:token] %>
-
+        <%= form_with model: @user, url: update_current_admin_passwords_path, local: true do |f| %>
             <div class="mb-3">
-                <%= f.label :password, "Mật khẩu mới", class: "form-label" %>
-                <%= f.password_field :password, class: "form-control", required: true %>
+                <%= f.label :current_password, "Current Password", class: "form-label" %>
+                <%= f.password_field :current_password, class: "form-control", name: "user[current_password]" %>
             </div>
 
             <div class="mb-3">
-                <%= f.label :password_confirmation, "Xác nhận mật khẩu", class: "form-label" %>
-                <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+                <%= f.label :password, "New Password", class: "form-label" %>
+                <%= f.password_field :password, class: "form-control" %>
             </div>
 
-            <div class="d-grid">
-                <%= f.submit "Update password", class: "btn btn-primary" %>
+            <div class="mb-3">
+                <%= f.label :password_confirmation, "Confirm New Password", class: "form-label" %>
+                <%= f.password_field :password_confirmation, class: "form-control" %>
             </div>
+
+            <%= f.submit "Update Password", class: "btn btn-primary w-100" %>
         <% end %>
     </div>
 </div>

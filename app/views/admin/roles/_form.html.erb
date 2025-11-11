@@ -6,7 +6,9 @@
     <div class="card-body">
         <%= form_with(model: [:admin, role], local: true) do |f| %>
         <div class="mb-3">
-            <%= f.label :name, class: "form-label" %>
+            <div class="d-flex align-items-center mb-2">
+                <%= f.label :name, class: "form-label" %><span class="text-danger">*</span>
+            </div>
             <%= f.text_field :name, class: "form-control", placeholder: "Enter role name" %>
             <% if @role.errors[:name].any? %>
                 <div class="text-danger"><%= @role.errors.full_messages_for(:name).join(', ') %></div>

@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin_login
-        redirect_to admin_login_path, alert: "Vui lòng đăng nhập!" unless admin_logged_in
+        unless current_admin
+        flash[:alert] = "Please log in to access this page."
+        redirect_to admin_login_path
+        end
     end
 end

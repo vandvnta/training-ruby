@@ -23,9 +23,14 @@ module Admin
 
         # DESTROY
         def destroy
-            return false unless @team
+            return false unless team
 
-            @team.destroy
+            if team.users.exists?
+            @errors << "This Team cannot be deleted because it is still in use."
+            return false
+            end
+
+            team.destroy
             true
         rescue => e
             @errors << e.message
