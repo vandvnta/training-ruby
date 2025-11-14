@@ -37,6 +37,16 @@ module Admin
             false
         end
 
+        def self.filter(params)
+            roles = Role.all
+
+            if params[:name].present?
+                roles = roles.where("name LIKE ?", "%#{params[:name]}%")
+            end
+
+            roles.paginate(page: params[:page])
+        end
+
         private
 
         def save_role

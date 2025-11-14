@@ -13,33 +13,40 @@
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <%= stylesheet_link_tag "pagination", media: "all", "data-turbo-track": "reload" %>
 </head>
 
 <body style="background-color: #f8f9fa;">
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin Panel</a>
-            <div class="collapse navbar-collapse justify-content-end">
-                <% if current_admin %>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user me-1"></i> <%= current_admin.name %>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><%= link_to "Change Password", edit_current_admin_passwords_path, class: "dropdown-item" %></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <div class="collapse navbar-collapse justify-content-end">
+        <% if current_admin %>
+            <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user me-1"></i> <%= current_admin.name %>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li>
+                    <%= link_to "Change Password", edit_current_admin_passwords_path, class: "dropdown-item" %>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a href="#" class="dropdown-item text-danger"
+                    data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    Logout
+                    </a>
+                </li>
                 </ul>
-                <% end %>
-            </div>
+            </li>
+            </ul>
+        <% end %>
         </div>
+    </div>
     </nav>
 
     <div class="d-flex" style="min-height: calc(100vh - 56px);">
@@ -65,8 +72,31 @@
         </main>
     </div>
 
-    <%= javascript_include_tag "admin" %>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="logoutModalLabel">
+                    <i class="fas fa-sign-out-alt me-2"></i> Confirm logout
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <p class="fs-5 text-secondary mb-0">Are you sure you want to log out?</p>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <%= button_to "Log out", admin_logout_path, method: :delete, class: "btn btn-danger px-4" %>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <%= javascript_include_tag "admin", "data-turbo-track": "reload", defer: true %>
 </body>
 </html>

@@ -1,7 +1,6 @@
 class Admin::BaseController < ApplicationController
     layout "admin"
     helper_method :current_admin
-    include Pagy::Backend
 
     before_action :authenticate_admin!
 

@@ -3,7 +3,7 @@ class Admin::TeamsController < Admin::BaseController
 
     # GET /admin/teams or /teams.json
     def index
-        @teams = Team.all
+        @teams = Admin::TeamService.filter(params)
     end
 
     # GET /admin/teams/1 or /teams/1.json

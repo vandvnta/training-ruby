@@ -1,16 +1,22 @@
 document.addEventListener("turbo:load", () => {
-    const logoutButton = document.getElementById("logout-button");
-    const modalElement = document.getElementById("logoutModal");
+  document.querySelectorAll('.dropdown-toggle').forEach(dropdownToggleEl => {
+    if (!bootstrap.Dropdown.getInstance(dropdownToggleEl)) {
+      new bootstrap.Dropdown(dropdownToggleEl);
+    }
+  });
 
-    if (!logoutButton || !modalElement) return;
+  const logoutButton = document.getElementById("logout-button");
+  const logoutModalEl = document.getElementById("logoutModal");
 
-    const logoutModal = new bootstrap.Modal(modalElement);
+  if (logoutButton && logoutModalEl) {
+    const logoutModal = new bootstrap.Modal(logoutModalEl);
 
     logoutButton.replaceWith(logoutButton.cloneNode(true));
     const newLogoutButton = document.getElementById("logout-button");
 
     newLogoutButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        logoutModal.show();
+      e.preventDefault();
+      logoutModal.show();
     });
+  }
 });

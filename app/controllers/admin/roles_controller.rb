@@ -3,7 +3,7 @@ class Admin::RolesController < Admin::BaseController
 
     # GET /admin/roles or /roles.json
     def index
-        @roles = Role.all
+        @roles = Admin::RoleService.filter(params)
     end
 
     # GET /admin/roles/1 or /roles/1.json

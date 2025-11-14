@@ -131,3 +131,19 @@
 .label-required {
     color: red;
 }
+
+.filter-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.width-input-filter {
+    width: 380px;
+}

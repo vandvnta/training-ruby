@@ -37,6 +37,16 @@ module Admin
             false
         end
 
+        def self.filter(params)
+            teams = Team.all
+
+            if params[:name].present?
+                teams = teams.where("name LIKE ?", "%#{params[:name]}%")
+            end
+
+            teams.paginate(page: params[:page])
+        end
+
         private
 
         def save_team

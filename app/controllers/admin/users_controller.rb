@@ -1,10 +1,9 @@
 class Admin::UsersController < Admin::BaseController
     before_action :set_user, only: %i[ show edit update destroy ]
-    include Pagy::Backend
 
     # GET /admin/users or /users.json
     def index
-        @pagy, @users = pagy(User.order(created_at: :desc), items: 1)
+        @users = Admin::UserService.filter(params)
     end
 
     # GET /admin/users/1 or /users/1.json

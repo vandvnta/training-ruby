@@ -32,6 +32,24 @@ module Admin
             false
         end
 
+        def self.filter(params)
+            users = User.all
+
+            if params[:name].present?
+                users = users.where("name LIKE ?", "%#{params[:name]}%")
+            end
+
+            if params[:role_id].present?
+                users = users.where(role_id: params[:role_id])
+            end
+
+            if params[:team_id].present?
+                users = users.where(team_id: params[:team_id])
+            end
+
+            users.paginate(page: params[:page])
+        end
+
         private
 
         def save_user
