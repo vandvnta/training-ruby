@@ -1,10 +1,18 @@
 <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
-    <td><%= user.team&.name || "No team" %></td>
-    <td><%= user.role&.name || "No role" %></td>
-    <td><%= user.created_at.strftime("%Y-%m-%d") %></td>
-    <td>
+    <td class="align-middle"><%= user.name %></td>
+    <td class="align-middle">
+        <% if user.avatar.attached? %>
+            <%= image_tag user.avatar.variant(resize_to_limit: [100, 100]), class: "img-thumbnail rounded-circle" %>
+        <% else %>
+            <% default_avatar_path = Rails.application.assets.find_asset('default_avatar.png') ? 'default_avatar.png' : 'https://placehold.co/100x100/cccccc/000000?text=Avatar' %>
+            <%= image_tag default_avatar_path, class: "img-thumbnail rounded-circle", width: 100, height: 100 %>
+        <% end %>
+    </td>
+    <td class="align-middle"><%= user.email %></td>
+    <td class="align-middle"><%= user.team&.name || "No team" %></td>
+    <td class="align-middle"><%= user.role&.name || "No role" %></td>
+    <td class="align-middle"><%= user.created_at.strftime("%Y-%m-%d") %></td>
+    <td class="align-middle">
         <div class="td-action">
             <%= link_to [:admin, user], class: "btn btn-sm btn-info flex-fill text-while" do %>
                 <i class="fa fa-eye"></i>
